@@ -2,7 +2,7 @@ import random
 import os
 
 #tuple
-neighbourSynonyms = ('neighbours',)
+neighbourSynonyms = ('neighbours')
 
 class Universe:
 

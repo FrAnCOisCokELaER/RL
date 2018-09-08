@@ -19,8 +19,8 @@ class Grid:
                 self.width=max([len(x.rstrip()) for x in data])
         else:
             raise RuntimeError('this is the error message')
+        #init cells
         self.cells = tuple([[Cell(x,y,data[y][x],self) for x in range(self.width)] for y in range(self.height)])
-
         #init agent
         self.agents=[]
         #reinit iteration
@@ -29,18 +29,19 @@ class Grid:
     def Display(self):
         print('width is', self.width)
         print('height is', self.height)
-        print( [[self.cells[y][x].display() for x in range(self.width)] for y in range(self.height)])
+        [print([self.cells[y][x].display() for x in range(self.width)] ) for y in range(self.height)]
+        print(self.agents[0].display())
 
     def generateOffsets(self):
-        if self.adjacency ==8:
+        if self.adjacency == 8:
             res = ( (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1))
         else:
             raise RuntimeError('only 8 neighbours adjacency is supported')
-
         return res
 
     def addAgent(self, agent, x=None, y=None, cell=None):
         self.agents.append(agent)
+
         if cell is not None:
             x = cell.x
             y = cell.y
@@ -49,12 +50,15 @@ class Grid:
         if y is None:
             y = random.randrange(self.height)
         agent.cell = self.cells[y][x]
+        agent.grid = self
 
 
 
 if __name__ == '__main__':
     mygrid = Grid()
     mygrid.restartGrid('map.txt')
+    myagent = Agent()
+    mygrid.addAgent(myagent)
     mygrid.Display()
 
 

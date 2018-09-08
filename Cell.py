@@ -2,7 +2,6 @@
 
 class Cell:
     def __getattr__(self, neighbours):
-
         def circularshift(coord, width):
             if coord<0:
                 coord+=width
